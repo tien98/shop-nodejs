@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 require('dotenv').config();
@@ -13,13 +14,13 @@ mongoose.connect('mongodb+srv://'+ process.env.MONGO_ATLAS_US +':'+ process.env.
 mongoose.Promise = global.Promise;
 
 const app = express(); 
-
 app.use(morgan('dev'));
+app.use(cors());
 app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.all((req, res, next) => {
+app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header(
         'Access-Control-Allow-Headers',
