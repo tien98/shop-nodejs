@@ -12,7 +12,7 @@ const issue2options = {
   methods: ["POST"],
   credentials: true
 };
-router.options('/issue-2', cors(issue2options));
+router.options('/signup', cors(issue2options));
 router.post('/signup',cors(issue2options), (req, res, next) => {
     User.find({email: req.body.email})
         .exec()
