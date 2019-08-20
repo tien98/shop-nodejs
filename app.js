@@ -42,7 +42,7 @@ app.use(bodyParser.json());
 
 app.use('/products', routerProducts);
 app.use('/orders', routerOrders);
-app.use('/user', cors() , routerUsers);
+app.use('/user', routerUsers);
 
 app.use((req, res, next) => {
     const error = new Error('Not found');
