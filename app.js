@@ -16,10 +16,10 @@ mongoose.Promise = global.Promise;
 const app = express(); 
 
 app.use(cors({
-	origin: "*",
-	methods: "GET, PUT, POST,DELETE, OPTIONS, PATCH",
-	preflightContinue: false,
-	optionsSuccessStatus: 204
+  "origin": "*",
+  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+  "preflightContinue": false,
+  "optionsSuccessStatus": 204
 }));
 app.use(morgan('dev'));
 app.use('/uploads', express.static('uploads'));
