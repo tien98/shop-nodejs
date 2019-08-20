@@ -1,19 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const cors = require("cors");
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
 
-const issue2options = {
-  origin: true,
-  methods: ["POST"],
-  credentials: true
-};
-router.options('/signup', cors(issue2options));
-router.post('/signup',cors(issue2options), (req, res, next) => {
+router.post('/signup', (req, res, next) => {
     User.find({email: req.body.email})
         .exec()
         .then(user => {
