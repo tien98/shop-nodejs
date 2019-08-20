@@ -14,7 +14,13 @@ mongoose.connect('mongodb+srv://'+ process.env.MONGO_ATLAS_US +':'+ process.env.
 mongoose.Promise = global.Promise;
 
 const app = express(); 
-app.use(cors());
+
+app.use(cors({
+	origin: "*",
+	methods: "GET, PUT, POST,DELETE, OPTIONS, PATCH",
+	preflightContinue: false,
+	optionsSuccessStatus: 204
+}));
 app.use(morgan('dev'));
 app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -32,14 +38,6 @@ app.use(bodyParser.json());
 //     }
 //     next();
 // });
-
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", '*');
-  res.header("Access-Control-Allow-Credentials", true);
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-  res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-  next();
-});
 
 app.use('/products', routerProducts);
 app.use('/orders', routerOrders);
