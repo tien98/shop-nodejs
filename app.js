@@ -14,24 +14,29 @@ mongoose.connect('mongodb+srv://'+ process.env.MONGO_ATLAS_US +':'+ process.env.
 mongoose.Promise = global.Promise;
 
 const app = express(); 
-app.use(cors());
+app.use(cors({
+	origin: "*",
+	medthods: "GET, PUT, POST,DELETE, OPTIONS",
+	preflightContinue: false,
+	optionsSuccessStatus: 204
+}));
 app.use(morgan('dev'));
 app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
-    res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept, Authorization');
-    if(req.method === 'OPTIONS'){
-        res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
-        res.header('Access-Control-Allow-Origin', '*');
-        res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept, Authorization');
-        return res.status(200).json({});
-    }
-    next();
-});
+// app.use((req, res, next) => {
+//     res.header('Access-Control-Allow-Origin', '*');
+//     res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+//     res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept, Authorization');
+//     if(req.method === 'OPTIONS'){
+//         res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+//         res.header('Access-Control-Allow-Origin', '*');
+//         res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept, Authorization');
+//         return res.status(200).json({});
+//     }
+//     next();
+// });
 
 app.use('/products', routerProducts);
 app.use('/orders', routerOrders);
