@@ -15,7 +15,7 @@ mongoose.Promise = global.Promise;
 
 const app = express();
 
-// app.use(cors());
+app.use(cors());
 // {
 //     origin: "*",
 //     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
@@ -34,25 +34,26 @@ app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-  });
+// app.use(function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     next();
+//   });
   
-  app.get('/', function (req, res) {
-    var data = {
-      "bestAnimals": [
-        "wombat",
-        "corgi",
-        "puffer fish",
-        "owl",
-        "crow"
-      ]
-    };
+//   app.get('/', function (req, res) {
+//     var data = {
+//       "bestAnimals": [
+//         "wombat",
+//         "corgi",
+//         "puffer fish",
+//         "owl",
+//         "crow"
+//       ]
+//     };
   
-    res.json(data);
-  });
+//     res.json(data);
+//   });
+
 // app.use((req, res, next) => {
 //     res.header('Access-Control-Allow-Origin', '*');
 //     res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept, Authorization');

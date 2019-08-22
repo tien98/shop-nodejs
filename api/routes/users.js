@@ -57,6 +57,7 @@ router.post('/login', (req, res, next) => {
                 });
             }
             bcrypt.compare(req.body.password, user[0].password, (err, result) => {
+                console.log(result)
                 if(err){
                     return res.status(401).json({
                         message: 'Auth failed'
@@ -66,7 +67,8 @@ router.post('/login', (req, res, next) => {
                     const token = jwt.sign(
                     {
                         email: user[0].email,
-                        userId: user[0]._id.replace(/"/g, '')
+                        name: user[0].firstName,
+                        id: user[0]._id
                     },
                     process.env.JWT_KEY,
                     {
@@ -74,6 +76,7 @@ router.post('/login', (req, res, next) => {
                     });
                     return res.status(200).json({
                         message: 'Auth successful',
+                        data :user,
                         token: token
                     })
                 }
